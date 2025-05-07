@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Proje</string>
+    <string name="marka">Marka</string>
+    <string name="model">Model</string>
+    <string name="yil">Yıl</string>
+    <string name="fiyat">Fiyat</string>
+    <string name="kaydet">Kaydet</string>
+    <string name="lanlar">İlanlar</string>
+    <string name="ekle">Ekle</string>
+    <string name="profil">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ad">Ad</string>
+    <string name="soyad">Soyad</string>
+    <string name="ho_geldiniz">Hoşgeldiniz!</string>
+    <string name="hosgeldiniz">"Hoşgeldiniz "</string>
+    <string name="sil">Sil</string>
+</resources>

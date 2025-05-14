@@ -1,20 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:layout_marginBottom="16dp"
+    android:elevation="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="@color/backgroundLightGreen">
 
-    <TextView android:id="@+id/txtBrand" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/marka" android:textStyle="bold"/>
-    <TextView android:id="@+id/txtModel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/model"/>
-    <TextView android:id="@+id/txtYear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/yil"/>
-    <TextView android:id="@+id/txtPrice" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/fiyat"/>
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sil"
-        android:layout_gravity="end"
-        android:backgroundTint="@color/red"
-        />
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Araba Marka -->
+        <TextView
+            android:id="@+id/txtBrand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Marka"
+            android:textColor="@color/textWhite"
+            android:textSize="16sp" />
+
+        <!-- Araba Model -->
+        <TextView
+            android:id="@+id/txtModel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Model"
+            android:textColor="@color/textWhite"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Yıl"
+            android:textColor="@color/textWhite"
+            android:textSize="16sp" />
+
+        <!-- Araba Fiyatı -->
+        <TextView
+            android:id="@+id/txtPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fiyat"
+            android:textColor="@color/accentGreen"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp" />
+
+        <!-- Silme Butonu -->
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:contentDescription="Sil"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            app:tint="@color/textWhite" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

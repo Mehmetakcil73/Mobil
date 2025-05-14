@@ -1,65 +1,73 @@
 package com.example.proje.UI;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.proje.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.proje.LoginActivity;
+import com.example.proje.Model.User;
+import com.example.proje.SessionManager.SessionManager;
+import com.example.proje.ViewModel.UserViewModel;
 import com.example.proje.databinding.FragmentProfileBinding;
 
 public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
-    private SharedPreferences sharedPreferences;
-    private static final String PREF_NAME = "user_pref";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_SURNAME = "surname";
+    private UserViewModel userViewModel;
+    private String currentUsername;
 
+    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
-        sharedPreferences = requireActivity().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SessionManager sessionManager = new SessionManager(requireContext());
+        currentUsername = sessionManager.getUsername();
 
-        String name = sharedPreferences.getString(PREF_NAME, "");
-        String surname = sharedPreferences.getString(PREF_NAME, "");
-        if (!name.isEmpty() || !surname.isEmpty()){
-            binding.txtGreeting.setText(getString(R.string.hosgeldiniz) + name + surname);
+        if (currentUsername == null) {
+            Toast.makeText(requireContext(), "Kullanıcı adı bulunamadı. Lütfen tekrar giriş yapın.", Toast.LENGTH_SHORT).show();
+            sessionManager.clearSession();
+            startActivity(new Intent(requireContext(), LoginActivity.class));
+            requireActivity().finish();
+            return binding.getRoot();
         }
 
-        binding.btnSave.setOnClickListener(v -> {
-            String enteredName = binding.edtName.getText().toString().trim();
-            String enteredSurame = binding.edtSurname.getText().toString().trim();
-
-            if (enteredName.isEmpty() || enteredSurame.isEmpty()){
-                Toast.makeText(getContext(), "Lütfen ad ve soyad giriniz!!", Toast.LENGTH_SHORT).show();
+        userViewModel.getUser(currentUsername).observe(getViewLifecycleOwner(), user -> {
+            if (user != null) {
+                binding.edtUsername.setText(user.getUsername());
+                binding.edtEmail.setText(user.getEmail());
+                binding.edtPassword.setText(user.getPassword());
             }
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(KEY_NAME, enteredName);
-            editor.putString(KEY_SURNAME, enteredSurame);
-            editor.apply();
-
-            binding.txtGreeting.setText(getString(R.string.hosgeldiniz) + enteredName + " " + enteredSurame);
-            Toast.makeText(getContext(), "Bilgiler kaydedildi!!", Toast.LENGTH_SHORT).show();
         });
-    }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+        binding.btnUpdate.setOnClickListener(v -> {
+            String updatedUsername = binding.edtUsername.getText().toString();
+            String updatedPassword = binding.edtPassword.getText().toString();
+            String updatedEmail = binding.edtEmail.getText().toString();
+
+            User updatedUser = new User(updatedUsername, updatedPassword, updatedEmail);
+            userViewModel.updateUser(updatedUser);
+
+            Toast.makeText(requireContext(), "Bilgiler güncellendi", Toast.LENGTH_SHORT).show();
+        });
+
+        binding.btnLogout.setOnClickListener(v -> {
+            SessionManager sessionManager1 = new SessionManager(requireContext());
+            sessionManager1.clearSession();
+            Intent intent = new Intent(requireActivity(), LoginActivity.class);
+            startActivity(intent);
+            requireActivity().finish();
+        });
+
+        return binding.getRoot();
     }
 }

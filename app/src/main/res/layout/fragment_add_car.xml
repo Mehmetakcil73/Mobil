@@ -1,51 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/backgroundDarkGreen"
+    android:padding="24dp">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:spacing="16dp">
 
-        <EditText
-            android:id="@+id/edtBrand"
+        <!-- Marka -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/marka"
-            android:inputType="text" />
+            app:hintTextColor="@color/hint"
+            app:boxStrokeWidthFocused="2dp">
 
-        <EditText
-            android:id="@+id/edtModel"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:hint="Marka"
+                app:boxStrokeColor="@color/primaryGreen"
+                app:boxBackgroundColor="@color/backgroundLightGreen"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Model -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/model"
-            android:inputType="text"
-            android:layout_marginTop="8dp"/>
+            app:hintTextColor="@color/hint"
+            app:boxStrokeWidthFocused="2dp">
 
-        <EditText
-            android:id="@+id/edtYear"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtModel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:hint="Model"
+                app:boxStrokeColor="@color/primaryGreen"
+                app:boxBackgroundColor="@color/backgroundLightGreen"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Yıl -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/yil"
-            android:inputType="number"
-            android:layout_marginTop="8dp"/>
+            app:hintTextColor="@color/hint"
+            app:boxStrokeWidthFocused="2dp">
 
-        <EditText
-            android:id="@+id/edtPrice"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:hint="Yıl"
+                app:boxStrokeColor="@color/primaryGreen"
+                app:boxBackgroundColor="@color/backgroundLightGreen"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Fiyat -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/fiyat"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="8dp"/>
+            app:hintTextColor="@color/hint"
+            app:boxStrokeWidthFocused="2dp">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:hint="Fiyat"
+                app:boxStrokeColor="@color/primaryGreen"
+                app:boxBackgroundColor="@color/backgroundLightGreen"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Kaydet Butonu -->
         <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/kaydet" />
+            android:text="Aracı Kaydet"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:backgroundTint="@color/primaryGreen"
+            android:layout_marginTop="24dp"
+            android:paddingVertical="12dp"
+            android:fontFamily="sans-serif-medium" />
     </LinearLayout>
 </ScrollView>

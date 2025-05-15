@@ -18,13 +18,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
+        android:layout_marginTop="100dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/kullaniciadiLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@id/tv_login_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +33,12 @@
             android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:textSize="18sp"
             android:hint="Kullanıcı Adı"
-            app:boxBackgroundColor="@color/textWhite"
+            app:boxBackgroundColor="@color/backgroundDark"
             app:boxStrokeColor="@color/accentGreen"
-            app:hintTextColor="@color/textWhite"
+            app:hintTextColor="@color/textAccent"
             app:hintEnabled="true"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -57,7 +56,7 @@
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:textSize="18sp"
             android:hint="Email"
             app:boxBackgroundColor="@color/backgroundDark"
@@ -79,7 +78,7 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:textSize="18sp"
             android:inputType="textPassword"
             android:hint="Şifre"

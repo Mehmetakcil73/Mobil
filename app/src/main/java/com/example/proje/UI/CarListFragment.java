@@ -24,6 +24,7 @@ public class CarListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         binding = FragmentCarListBinding.inflate(inflater, container, false);
+        binding.getRoot().setFitsSystemWindows(true);
         return binding.getRoot();
     }
 

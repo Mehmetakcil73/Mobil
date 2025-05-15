@@ -35,7 +35,7 @@
             android:id="@+id/edtUsername"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:textSize="18sp"
             android:hint="Kullanıcı Adı"
             app:boxBackgroundMode="outline"
@@ -57,7 +57,7 @@
             android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:textSize="18sp"
             android:hint="Email"
             app:boxBackgroundMode="outline"
@@ -80,7 +80,7 @@
             android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:textColor="@color/textWhite"
+            android:textColor="@color/secondaryGreen"
             android:inputType="textPassword"
             android:textSize="18sp"
             android:hint="Şifre"
@@ -91,7 +91,7 @@
 
     <!-- Kayıt Ol Butonu -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+        android:id="@+id/btnRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Kayıt Ol"

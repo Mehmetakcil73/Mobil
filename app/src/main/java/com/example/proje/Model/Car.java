@@ -6,23 +6,26 @@ public class Car {
     private String model;
     private int year;
     private double price;
+    private String userId;
 
     public Car() {
     }
 
-    public Car(int id, String brand, String model, int year, double price) {
+    public Car(int id, String brand, String model, int year, double price, String userId) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.price = price;
+        this.userId = userId;
     }
 
-    public Car(String brand, String model, int year, double price) {
+    public Car(String brand, String model, int year, double price, String userId) {
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.price = price;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -63,5 +66,13 @@ public class Car {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

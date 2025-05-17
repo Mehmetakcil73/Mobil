@@ -10,16 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
-import com.example.proje.DB.CarDatabaseHelper;
 import com.example.proje.Model.Car;
+import com.example.proje.R;
+import com.example.proje.SessionManager.SessionManager;
 import com.example.proje.ViewModel.CarViewModel;
 import com.example.proje.databinding.FragmentAddCarBinding;
 
 public class AddCarFragment extends Fragment {
     private FragmentAddCarBinding binding;
-    private CarDatabaseHelper dbHelper;
     private CarViewModel carViewModel;
+    private SessionManager sessionManager;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -29,7 +31,15 @@ public class AddCarFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
+
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
+        sessionManager = new SessionManager(requireContext());
+
+        // Geri butonu click listener
+        binding.btnBack.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigateUp();
+        });
 
         binding.btnSave.setOnClickListener(v -> {
             String brand = binding.edtBrand.getText().toString().trim();
@@ -38,21 +48,30 @@ public class AddCarFragment extends Fragment {
             String priceStr = binding.edtPrice.getText().toString().trim();
 
             if (brand.isEmpty() || model.isEmpty() || yearStr.isEmpty() || priceStr.isEmpty()){
-                Toast.makeText(getContext(), "Lütfen tüm alanları doldurunuz!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Lütfen tüm alanları doldurunuz!", Toast.LENGTH_SHORT).show();
+                return;
             }
 
-            int year = Integer.parseInt(yearStr);
-            double price = Double.parseDouble(priceStr);
+            String currentUserId = sessionManager.getUsername();
+            if (currentUserId == null) {
+                Toast.makeText(getContext(), "Oturum hatası! Lütfen tekrar giriş yapın.", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Car car = new Car(brand, model, year, price);
-            carViewModel.addCar(car);
+            try {
+                int year = Integer.parseInt(yearStr);
+                double price = Double.parseDouble(priceStr);
 
-            Toast.makeText(getContext(), "Araç başarıyla kaydedildi!!", Toast.LENGTH_SHORT).show();
+                Car car = new Car(brand, model, year, price, currentUserId);
+                carViewModel.addCar(car);
 
-            binding.edtBrand.setText("");
-            binding.edtModel.setText("");
-            binding.edtYear.setText("");
-            binding.edtPrice.setText("");
+                Toast.makeText(getContext(), "Araç başarıyla kaydedildi!", Toast.LENGTH_SHORT).show();
+                
+                // Navigate back to MyCarListFragment
+                Navigation.findNavController(v).navigate(R.id.action_addCarFragment_to_myCarListFragment);
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Yıl ve fiyat alanları geçerli sayılar olmalıdır!", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

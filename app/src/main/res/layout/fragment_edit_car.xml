@@ -14,35 +14,14 @@
         android:layout_gravity="center"
         android:spacing="16dp">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="24dp">
-
-            <ImageButton
-                android:id="@+id/btnBack"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_back"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Geri" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Yeni İlan Ekle"
-                android:textSize="24sp"
-                android:textColor="@android:color/white"
-                android:gravity="center" />
-
-            <View
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:visibility="invisible" />
-        </LinearLayout>
+            android:text="İlan Düzenle"
+            android:textSize="24sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            android:layout_marginBottom="24dp"/>
 
         <!-- Marka -->
         <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +45,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:hintTextColor="@color/hint"
             app:boxStrokeWidthFocused="2dp">
 
@@ -85,7 +63,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:hintTextColor="@color/hint"
             app:boxStrokeWidthFocused="2dp">
 
@@ -105,7 +82,6 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             app:hintTextColor="@color/hint"
             app:boxStrokeWidthFocused="2dp">
 
@@ -121,17 +97,17 @@
                 app:boxBackgroundColor="@color/backgroundLightGreen"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Kaydet Butonu -->
+        <!-- Güncelle Butonu -->
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnUpdate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Kaydet"
+            android:text="Güncelle"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:backgroundTint="@color/primaryGreen"
-            android:layout_marginTop="32dp"
-            android:paddingVertical="12dp"/>
-
+            android:layout_marginTop="24dp"
+            android:paddingVertical="12dp"
+            android:fontFamily="sans-serif-medium" />
     </LinearLayout>
-</ScrollView>
+</ScrollView> 

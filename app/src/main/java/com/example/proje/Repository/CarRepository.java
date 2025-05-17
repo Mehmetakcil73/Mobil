@@ -18,8 +18,16 @@ public class CarRepository {
         dbHelper.addCar(car);
     }
 
+    public void updateCar(Car car) {
+        dbHelper.updateCar(car);
+    }
+
     public List<Car> getAllCars(){
         return dbHelper.getAllCars();
+    }
+
+    public List<Car> getCarsByUserId(String userId) {
+        return dbHelper.getCarsByUserId(userId);
     }
 
     public void deleteCar(Car car){

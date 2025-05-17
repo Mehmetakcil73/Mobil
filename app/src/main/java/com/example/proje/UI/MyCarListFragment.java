@@ -17,66 +17,58 @@ import com.example.proje.Model.Car;
 import com.example.proje.R;
 import com.example.proje.SessionManager.SessionManager;
 import com.example.proje.ViewModel.CarViewModel;
-import com.example.proje.ViewModel.UserViewModel;
-import com.example.proje.databinding.FragmentCarListBinding;
+import com.example.proje.databinding.FragmentMyCarListBinding;
 
-public class CarListFragment extends Fragment {
-    private FragmentCarListBinding binding;
+public class MyCarListFragment extends Fragment {
+    private FragmentMyCarListBinding binding;
     private CarViewModel carViewModel;
-    private UserViewModel userViewModel;
     private CarAdapter carAdapter;
     private SessionManager sessionManager;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        binding = FragmentCarListBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentMyCarListBinding.inflate(inflater, container, false);
         binding.getRoot().setFitsSystemWindows(true);
         return binding.getRoot();
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(requireContext());
         carViewModel = new ViewModelProvider(requireActivity()).get(CarViewModel.class);
-        userViewModel = new ViewModelProvider(requireActivity()).get(UserViewModel.class);
-        
-        setupRecyclerView();
-        observeData();
-    }
-
-    private void setupRecyclerView() {
         carAdapter = new CarAdapter(requireContext());
         carAdapter.setCurrentUserId(sessionManager.getUsername());
-        carAdapter.setAdmin(userViewModel.isCurrentUserAdmin());
         carAdapter.setOnDeleteClickListener(this::showDeleteConfirmationDialog);
         carAdapter.setOnEditClickListener(this::navigateToEditCar);
         
-        binding.recyclerViewCars.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewCars.setAdapter(carAdapter);
-    }
+        binding.recyclerViewMyCars.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerViewMyCars.setAdapter(carAdapter);
 
-    private void observeData() {
-        carViewModel.getCars().observe(getViewLifecycleOwner(), cars -> {
-            carAdapter.setCarList(cars);
+        String currentUserId = sessionManager.getUsername();
+        if (currentUserId != null) {
+            carViewModel.getUserCars(currentUserId).observe(getViewLifecycleOwner(), cars -> {
+                carAdapter.setCarList(cars);
+            });
+        }
+
+        // FAB click listener
+        binding.fabAddCar.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(R.id.action_myCarListFragment_to_addCarFragment);
         });
     }
 
     @Override
-    public void onDestroyView(){
+    public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
 
     private void showDeleteConfirmationDialog(Car car) {
-        String message = userViewModel.isCurrentUserAdmin() ?
-            "Bu ilanı silmek istediğinize emin misiniz? (Admin olarak siliyorsunuz)" :
-            "Bu ilanı silmek istediğinize emin misiniz?";
-
         new androidx.appcompat.app.AlertDialog.Builder(requireContext())
                 .setTitle("İlanı Sil")
-                .setMessage(message)
+                .setMessage("Bu ilanı silmek istediğinize emin misiniz?")
                 .setPositiveButton("Evet", (dialog, which) -> {
                     carViewModel.deleteCar(car);
                 })
@@ -94,6 +86,6 @@ public class CarListFragment extends Fragment {
         args.putString("car_userId", car.getUserId());
         
         Navigation.findNavController(requireView())
-                .navigate(R.id.action_carListFragment_to_editCarFragment, args);
+                .navigate(R.id.action_myCarListFragment_to_editCarFragment, args);
     }
-}
+} 

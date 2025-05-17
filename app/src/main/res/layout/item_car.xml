@@ -62,16 +62,44 @@
                 android:textSize="18sp"
                 android:layout_marginTop="8dp" />
 
-            <!-- Silme Butonu -->
-            <ImageButton
-                android:id="@+id/btnDelete"
+            <!-- İlan Sahibi -->
+            <TextView
+                android:id="@+id/txtOwner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="İlan Sahibi"
+                android:textColor="@color/textWhite"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:textStyle="italic" />
+
+            <!-- Butonlar için LinearLayout -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_delete"
-                android:contentDescription="Sil"
                 android:layout_gravity="end"
                 android:layout_marginTop="8dp"
-                app:tint="@color/red" />
+                android:orientation="horizontal">
+
+                <!-- Düzenleme Butonu -->
+                <ImageButton
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_edit"
+                    android:contentDescription="Düzenle"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/primaryGreen" />
+
+                <!-- Silme Butonu -->
+                <ImageButton
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_delete"
+                    android:contentDescription="Sil"
+                    app:tint="@color/red" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

@@ -8,6 +8,8 @@ import com.example.proje.DB.UserDatabaseHelper;
 import com.example.proje.Model.User;
 import com.example.proje.SessionManager.SessionManager;
 
+import java.util.List;
+
 public class UserRepository {
 
     private final UserDatabaseHelper dbHelper;
@@ -22,20 +24,30 @@ public class UserRepository {
         return dbHelper.insertUser(user);
     }
 
-    public boolean loginUser(String username, String password) {
+    public User loginUser(String username, String password) {
         boolean isValid = dbHelper.checkUser(username, password);
         if (isValid) {
-            sessionManager.setLogin(true);
+            User user = dbHelper.getUserByUsername(username);
+            if (user != null) {
+                sessionManager.setLogin(true);
+                sessionManager.saveUsername(username);
+                sessionManager.setAdmin(user.isAdmin());
+                return user;
+            }
         }
-        return isValid;
+        return null;
     }
 
     public void logoutUser() {
-        sessionManager.logout();
+        sessionManager.clearSession();
     }
 
     public boolean isUserLoggedIn() {
         return sessionManager.isLoggedIn();
+    }
+
+    public boolean isCurrentUserAdmin() {
+        return sessionManager.isAdmin();
     }
 
     public LiveData<User> getUser(String username) {
@@ -44,5 +56,21 @@ public class UserRepository {
 
     public void updateUser(User user) {
         dbHelper.updateUser(user);
+    }
+
+    public List<User> getAllUsers() {
+        return dbHelper.getAllUsers();
+    }
+
+    public User getCurrentUser() {
+        String username = sessionManager.getUsername();
+        if (username != null) {
+            return dbHelper.getUserByUsername(username);
+        }
+        return null;
+    }
+
+    public User getUserByUsername(String username) {
+        return dbHelper.getUserByUsername(username);
     }
 }

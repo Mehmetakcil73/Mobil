@@ -90,8 +90,8 @@ public class CarListFragment extends Fragment {
         args.putString("car_brand", car.getBrand());
         args.putString("car_model", car.getModel());
         args.putInt("car_year", car.getYear());
-        args.putFloat("car_price", (float) car.getPrice());
         args.putString("car_userId", car.getUserId());
+        args.putFloat("car_price", (float) car.getPrice());
         
         Navigation.findNavController(requireView())
                 .navigate(R.id.action_carListFragment_to_editCarFragment, args);
